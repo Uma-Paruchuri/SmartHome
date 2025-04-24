@@ -2,6 +2,8 @@ package com.app.home.model;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class Light implements ApplianceInterface{
 
@@ -19,5 +21,16 @@ public class Light implements ApplianceInterface{
     @Override
     public void turnOff() {
         lightState = "off";
+    }
+
+    @Override
+    public String turnOn() {
+        lightState = "on";
+        return this.getState();
+    }
+
+    @Override
+    public String turnOn(int speed) {
+        return turnOn();
     }
 }

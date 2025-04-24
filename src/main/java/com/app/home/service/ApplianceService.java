@@ -27,9 +27,6 @@ public class ApplianceService {
     @Autowired
     private AirConditioner airConditioner;
 
-    //@Autowired
-    //private ApplianceInterface applianceInterface;
-
 
     public void turnOffAll(){
         applianceMap.values().forEach(ApplianceInterface::turnOff);
@@ -52,5 +49,38 @@ public class ApplianceService {
 
     public String setACTemp(int temp){
         return airConditioner.setTemp(temp);
+    }
+
+    public void turnOnAll(){
+        applianceMap.values().forEach(ApplianceInterface::turnOn);
+    }
+
+    public String turnOnBasedOnType(String type, Integer setting){
+        ApplianceInterface applianceInterface = get(type);
+        if(applianceInterface == null){
+            throw new IllegalArgumentException("Unknown Appliance Name : " + type);
+        }
+        if(setting != null){
+           return applianceInterface.turnOn(setting);
+        }else {
+            return applianceInterface.turnOn();
+        }
+    }
+
+    public String getState(String type){
+        ApplianceInterface applianceInterface = get(type);
+        if(applianceInterface != null){
+           return applianceInterface.getState();
+        }else{
+            throw new IllegalArgumentException("Unknown Appliance Name : " + type);
+        }
+    }
+
+    public Map<String,String> getstatus(){
+        Map<String,String> responseStatus = new HashMap<>();
+        for(String type : applianceMap.keySet()){
+            responseStatus.put(type,applianceMap.get(type).getState());
+        }
+        return responseStatus;
     }
 }

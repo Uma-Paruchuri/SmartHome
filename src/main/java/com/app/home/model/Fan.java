@@ -16,13 +16,18 @@ public class Fan implements ApplianceInterface{
 
     @Override
     public String getState() {
-        return fanState;
+        return "Fan is: " + fanState + ", Fan speed is: " + fanSpeed;
     }
 
     @Override
     public void turnOff() {
         fanSpeed = 0;
         fanState = "off";
+    }
+
+    @Override
+    public String turnOn() {
+        return turnOn(1);
     }
 
     public String adjustFanSpeed(int speed){
@@ -32,5 +37,13 @@ public class Fan implements ApplianceInterface{
         }else {
             return "Please turn on the fan";
         }
+    }
+
+    @Override
+    public String turnOn(int speed) {
+        fanSpeed = speed;
+        fanState = "on";
+
+        return this.getState();
     }
 }

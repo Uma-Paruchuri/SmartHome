@@ -14,12 +14,25 @@ public class AirConditioner implements ApplianceInterface{
 
     @Override
     public String getState() {
-        return "AC is : " + thermostatState;
+        return "AC is: " + thermostatState + ", Current Temperature is: " + ac_temp_F;
     }
 
     @Override
     public void turnOff() {
         thermostatState = "off";
+    }
+
+    @Override
+    public String turnOn() {
+        return turnOn(20);
+    }
+
+    @Override
+    public String turnOn(int speed) {
+        ac_temp_F = speed;
+        thermostatState = "on";
+
+        return this.getState();
     }
 
     public String setTemp(int temp){
@@ -31,4 +44,5 @@ public class AirConditioner implements ApplianceInterface{
         }
 
     }
+
 }
